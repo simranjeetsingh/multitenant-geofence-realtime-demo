@@ -243,17 +243,32 @@ receives the current value.
 
 ## 9. Screenshots
 
-> Add screenshots / screen recordings here.
+Captured live against PostgreSQL 17 + PostGIS 3.6 (1440px viewport).
 
-| Feature              | Screenshot                                  |
-| -------------------- | ------------------------------------------- |
-| Tenant resolution    | `docs/screenshots/tenant.png` _(add me)_    |
-| Unknown tenant 404   | `docs/screenshots/404.png` _(add me)_       |
-| Geofence check       | `docs/screenshots/geofence.png` _(add me)_  |
-| Realtime counter     | `docs/screenshots/counter.gif` _(add me)_   |
+### Feature 1 — Tenant resolved (`tenant1.localhost`)
 
-_(Create a `docs/screenshots/` folder and drop images in to populate this
-section.)_
+The middleware resolved the subdomain and injected the tenant into request
+headers; the homepage renders the id/subdomain/name.
+
+![Tenant resolved](docs/screenshots/tenant.png)
+
+### Feature 1 — Unknown tenant returns 404 (`unknown.localhost`)
+
+![Unknown tenant 404](docs/screenshots/404.png)
+
+### Feature 2 — Geofence check returns `{"inside": true}`
+
+NYC City Hall (40.7128, -74.0060) tested against the Lower Manhattan polygon via
+`ST_Contains` / Prisma `$queryRaw`.
+
+![Geofence inside](docs/screenshots/geofence.png)
+
+### Feature 3 — Realtime counter (cross-tab sync)
+
+This is the **second** tab — its value (`3`) was produced by clicking Increment
+three times in the **first** tab, broadcast over Socket.io (3–5ms on localhost).
+
+![Realtime counter](docs/screenshots/counter.png)
 
 ---
 
