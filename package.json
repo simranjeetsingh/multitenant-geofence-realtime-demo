@@ -1,0 +1,44 @@
+{
+  "name": "technical-screening-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multi-tenant middleware + PostGIS geofence + realtime counter demo",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.server.json ts-node -r tsconfig-paths/register server.ts",
+    "build": "next build",
+    "start": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.server.json ts-node -r tsconfig-paths/register server.ts",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "db:setup": "prisma migrate deploy && prisma db seed",
+    "db:seed": "prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "next": "^14.2.33",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.33",
+    "postcss": "^8.4.39",
+    "prisma": "^5.22.0",
+    "tailwindcss": "^3.4.6",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.5.3"
+  }
+}

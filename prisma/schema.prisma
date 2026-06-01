@@ -1,0 +1,29 @@
+// Prisma schema for the technical screening demo.
+//
+// PostGIS adds a `geometry` column type that Prisma does not model natively, so
+// the `Geofence.boundary` column is declared as `Unsupported("geometry(...)")`.
+// We never read/write that column through the Prisma Client API — all spatial
+// work happens via `$queryRaw` using PostGIS functions (see geofence-service).
+
+generator client {
+  provider        = "prisma-client-js"
+  // `postgresqlExtensions` lets us declare the PostGIS extension in-schema so
+  // `prisma migrate` emits `CREATE EXTENSION postgis`.
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [postgis]
+}
+
+model Geofence {
+  id        Int      @id @default(autoincrement())
+  name      String
+  // SRID 4326 = WGS84 lat/lng. Stored as a POLYGON geometry.
+  boundary  Unsupported("geometry(Polygon, 4326)")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("geofences")
+}
