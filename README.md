@@ -141,6 +141,16 @@ Verify PostGIS is active:
 psql -d screening_demo -c "SELECT PostGIS_Version();"
 ```
 
+> **Version note (Homebrew):** the Homebrew `postgis` bottle is built for the
+> current major Postgres (currently 17/18). If your running server is an older
+> major (e.g. `postgresql@16`), `CREATE EXTENSION postgis` will report the
+> extension as unavailable. Either run Postgres in the
+> [`postgis/postgis` Docker image](https://hub.docker.com/r/postgis/postgis)
+> (which always matches), or install the matching `postgresql@NN` and point
+> `DATABASE_URL` at it. This repo was verified end-to-end against
+> `postgresql@17` + PostGIS 3.6 with `{"lat":40.7128,"lng":-74.0060}` →
+> `{"inside":true}` and San Francisco → `{"inside":false}`.
+
 ---
 
 ## 5. Running locally

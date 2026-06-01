@@ -1,3 +1,6 @@
+// MUST be the first import: populates process.env from .env before any module
+// (env validation, Prisma) reads it. See src/lib/load-env.ts.
+import "@/lib/load-env";
 import { createServer } from "http";
 import { parse } from "url";
 import next from "next";
